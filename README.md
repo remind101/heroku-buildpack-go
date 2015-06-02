@@ -43,6 +43,25 @@ This buildpack adds a `heroku` [build constraint][build-constraint], to enable
 heroku-specific code. See the [App Engine build constraints
 article][app-engine-build-constraints] for more.
 
+## NewRelic Support
+
+In order to run your app with newrelic, you'll need to use the multibuildpack:
+
+```
+$ hk env
+BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi
+CGO_CFLAGS=-I/app/code/.newrelic/include
+CGO_LDFLAGS=-L/app/code/.newrelic/lib
+
+$ cat .buildpacks 
+https://github.com/ddollar/heroku-buildpack-apt
+https://github.com/remind101/heroku-buildpack-go#newrelic
+
+$ cat Aptfile 
+libboost-all-dev
+libcurl4-openssl-dev
+```
+
 ## Hacking on this Buildpack
 
 To change this buildpack, fork it on GitHub. Push changes to your fork, then
